@@ -1,6 +1,6 @@
 # date-range-compressor
 
-Reduces a date range to full years, full months, and days between to dates.
+Reduces a date range to full years, full months, and days between two dates.
 
 ## Installation
 

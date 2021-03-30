@@ -16,4 +16,9 @@ describe('Test if compression works', () => {
     };
     expect(compressDateRange('20191205', '20210301')).toEqual(expectedResponse);
   });
+
+  it('Should output only days if range is in same month', () => {
+    const {years, months, days} = compressDateRange('20200101', '20200103');
+    expect([years, months, days]).toStrictEqual([[], [], ['20200101', '20200102', '20200103']]);
+  });
 });

@@ -18,12 +18,12 @@ interface CompressedDateRange {
  * @return {CompressedDateRange} The full years, full months and days included in that range
  */
 export function compressDateRange(start: string, end: string): CompressedDateRange {
-  start = formatDate(start);
-  end = formatDate(end);
+  const formattedStart = formatDate(start);
+  const formattedEnd = formatDate(end);
 
-  const fullYearsBetween = getYearsInRange(start, end);
-  const fullMonthsBetween = getMonthsInRange(start, end, fullYearsBetween);
-  const daysBetween = getDaysInRange(start, end, fullMonthsBetween, fullYearsBetween);
+  const fullYearsBetween = getYearsInRange(formattedStart, formattedEnd);
+  const fullMonthsBetween = getMonthsInRange(formattedStart, formattedEnd, fullYearsBetween);
+  const daysBetween = getDaysInRange(formattedStart, formattedEnd, fullMonthsBetween, fullYearsBetween);
 
   return {
     years: fullYearsBetween,

@@ -48,6 +48,7 @@
     "@typescript-eslint/parser": "^4.17.0",
     "eslint": "^7.23.0",
     "husky": "^6.0.0",
+    "ts-jest": "^26.5.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
     "typedoc": "^0.20.34",

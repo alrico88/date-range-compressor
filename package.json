@@ -10,6 +10,12 @@
   "engines": {
     "node": ">=10"
   },
+  "contributors": [
+    {
+      "name": "Pablo Wildschut",
+      "url": "https://github.com/pwildschut"
+    }
+  ],
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",

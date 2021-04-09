@@ -21,4 +21,9 @@ describe('Test if compression works', () => {
     const {years, months, days} = compressDateRange('20200101', '20200103');
     expect([years, months, days]).toStrictEqual([[], [], ['20200101', '20200102', '20200103']]);
   });
+
+  it('Should accept other input formats and output months', () => {
+    const {years, months, days} = compressDateRange('2020-01-01', '2020-03-01');
+    expect([years, months, days]).toStrictEqual([[], ['202001', '202002'], ['20200301']]);
+  });
 });

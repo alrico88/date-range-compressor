@@ -26,8 +26,8 @@ export function parseDate(date: string): ParsedDate {
   };
 }
 
-  /**
- * Parses a date string into a YYYYMMDD string into year, month and day
+/**
+ * Parses any valid date expression into a YYYYMMDD string
  *
  * @export
  * @param {string} date string

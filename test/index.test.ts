@@ -22,8 +22,14 @@ describe('Test if compression works', () => {
     expect([years, months, days]).toStrictEqual([[], [], ['20200101', '20200102', '20200103']]);
   });
 
-  it('Should accept other input formats and output months', () => {
+  it('Should accept other input formats and output the full months and separate days', () => {
     const {years, months, days} = compressDateRange('2020-01-01', '2020-03-01');
     expect([years, months, days]).toStrictEqual([[], ['202001', '202002'], ['20200301']]);
+  });
+
+  it('Should return the same result regardless of the format if the input range is the same', () => {
+    const resultYYYYMMDD = compressDateRange('20200101', '20200301');
+    const resultWithDashes = compressDateRange('2020-01-01', '2020-03-01');
+    expect(resultYYYYMMDD).toStrictEqual(resultWithDashes);
   });
 });

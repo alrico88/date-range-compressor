@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import {DateFormats} from './format';
+
 interface ParsedDate {
   day: number;
   month: number;
@@ -21,4 +24,21 @@ export function parseDate(date: string): ParsedDate {
     month,
     year,
   };
+}
+
+/**
+ * Parses any valid date expression into a YYYYMMDD string
+ *
+ * @export
+ * @param {string} date string
+ * @return {string} date in YYYYMMDD format
+ */
+export function formatDate(date: string): string {
+  if (dayjs(date).isValid()) {
+    return dayjs(date).format(DateFormats.Day);
+  } else if (dayjs(date, DateFormats.Day).isValid()) {
+    return date;
+  } else {
+    throw new Error('Unrecognized date format');
+  }
 }

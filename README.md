@@ -42,19 +42,21 @@ const compressedRange = compressDateRange('20191230', '20210203');
 
 ▸ **compressDateRange**(`start`: _string_, `end`: _string_): CompressedDateRange
 
-Compresses a date range between two days expressed as YYYYMMDD strings
+Compresses a date range between two days expressed as string date expressions
 
 **`export`**
 
+**`link`** https://day.js.org/docs/en/parse/string-format Possible date formats
+
 #### Parameters:
 
-| Name    | Type     | Description              |
-| :------ | :------- | :----------------------- |
-| `start` | _string_ | Starting day as YYYYMMDD |
-| `end`   | _string_ | End day as YYYYMMDD      |
+| Name    | Type     | Description                           |
+| :------ | :------- | :------------------------------------ |
+| `start` | _string_ | Starting day as any valid date string |
+| `end`   | _string_ | End day as any valid date string      |
 
 **Returns:** CompressedDateRange
 
 The full years, full months and days included in that range
 
-Defined in: index.ts:19
+Defined in: [index.ts:21](https://github.com/alrico88/date-range-compressor/blob/525975d/src/index.ts#L21)

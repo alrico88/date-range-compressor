@@ -10,11 +10,12 @@ interface CompressedDateRange {
 }
 
 /**
- * Compresses a date range between two days expressed as YYYYMMDD strings
+ * Compresses a date range between two days expressed as string date expressions
  *
  * @export
- * @param {string} start Starting day as YYYYMMDD
- * @param {string} end End day as YYYYMMDD
+ * @param {string} start Starting day as any valid date string
+ * @param {string} end End day as any valid date string
+ * @link https://day.js.org/docs/en/parse/string-format Possible date formats
  * @return {CompressedDateRange} The full years, full months and days included in that range
  */
 export function compressDateRange(start: string, end: string): CompressedDateRange {

@@ -32,4 +32,14 @@ describe('Test if compression works', () => {
     const resultWithDashes = compressDateRange('2020-01-01', '2020-03-01');
     expect(resultYYYYMMDD).toStrictEqual(resultWithDashes);
   });
+
+  it('Should detect that a single month with its full dates range should be compressed', () => {
+    const {months} = compressDateRange('2020-01-01', '2020-01-31');
+    expect(months).toStrictEqual(['202001']);
+  });
+
+  it('Should detect that a single month without its full dates range should not be compressed', () => {
+    const {months} = compressDateRange('2020-01-01', '2020-01-30');
+    expect(months).toStrictEqual([]);
+  });
 });

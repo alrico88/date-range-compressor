@@ -28,7 +28,7 @@ function monthHasAllDays(daysInMonth: string[], listOfDays: string[]): boolean {
   let response = true;
 
   for (const day of daysInMonth) {
-    if (listOfDays.includes(day) === false) {
+    if (!listOfDays.includes(day)) {
       response = false;
       break;
     }
@@ -77,24 +77,21 @@ export function getMonthsInRange(start: string, end: string, excludedYears: stri
     const rangeStartMonth = `${parsedRangeStart.year}${padNumber(parsedRangeStart.month)}`;
     const rangeEndMonth = `${parsedRangeEnd.year}${padNumber(parsedRangeEnd.month)}`;
 
-    const isSameMonth = rangeStartMonth === rangeEndMonth;
+    const daysInRange = getDaysInRange(rangeStart, rangeEnd);
 
-    if (isSameMonth === false) {
-      const monthsDifference = getMonthsDifference(rangeEndMonth, rangeStartMonth);
-      const monthsBetween: string[] = [];
+    const monthsDifference = getMonthsDifference(rangeEndMonth, rangeStartMonth);
+    const monthsBetween: string[] = monthsDifference === 0 ? [rangeStartMonth] : [];
 
-      for (let i = 0; i < monthsDifference; i++) {
-        monthsBetween.push(getNthNextMonth(rangeStartMonth, i));
-      }
+    for (let i = 0; i < monthsDifference; i++) {
+      monthsBetween.push(getNthNextMonth(rangeStartMonth, i));
+    }
 
-      const daysInRange = getDaysInRange(rangeStart, rangeEnd);
+    for (const month of monthsBetween) {
+      const daysInMonth = getDaysInMonth(month);
+      const hasAllDays = monthHasAllDays(daysInMonth, daysInRange);
 
-      for (const month of monthsBetween) {
-        const daysInMonth = getDaysInMonth(month);
-        const hasAllDays = monthHasAllDays(daysInMonth, daysInRange);
-        if (hasAllDays) {
-          range.push(month);
-        }
+      if (hasAllDays) {
+        range.push(month);
       }
     }
   }

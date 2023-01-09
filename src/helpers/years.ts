@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import isLeapYear from 'dayjs/plugin/isLeapYear';
+import { DateFormats } from './format';
+import { parseDate } from './parser';
+
 dayjs.extend(isLeapYear);
-import {DateFormats} from './format';
-import {parseDate} from './parser';
 
 /**
  * Gets the starting day of the year
@@ -31,7 +32,10 @@ function getEndOfYear(year: string): string {
  * @param {string} endDate The end date YYYYMMDD
  * @return  {{start: boolean; end: boolean}}
  */
-function isSameYearComplete(startDate: string, endDate: string): {start: boolean; end: boolean} {
+function isSameYearComplete(
+  startDate: string,
+  endDate: string
+): { start: boolean; end: boolean } {
   const startOfYear = getStartOfYear(parseDate(startDate).year.toString());
   const endOfYear = getEndOfYear(parseDate(endDate).year.toString());
 
@@ -52,8 +56,8 @@ function isSameYearComplete(startDate: string, endDate: string): {start: boolean
 export function getYearsInRange(start: string, end: string): string[] {
   const years: string[] = [];
 
-  const {year: startYear} = parseDate(start);
-  const {year: endYear} = parseDate(end);
+  const { year: startYear } = parseDate(start);
+  const { year: endYear } = parseDate(end);
 
   for (let i = 0 + 1; i < endYear - startYear; i++) {
     years.push((startYear + i).toString());
@@ -61,7 +65,10 @@ export function getYearsInRange(start: string, end: string): string[] {
 
   // Check for same year
   if (startYear !== endYear) {
-    const {start: isStartComplete, end: isEndComplete} = isSameYearComplete(start, end);
+    const { start: isStartComplete, end: isEndComplete } = isSameYearComplete(
+      start,
+      end
+    );
 
     if (isStartComplete === true) {
       years.unshift(startYear.toString());

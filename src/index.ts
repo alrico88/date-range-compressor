@@ -1,7 +1,7 @@
-import {getDaysInRange} from './helpers/days';
-import {getMonthsInRange} from './helpers/months';
-import {formatDate} from './helpers/parser';
-import {getYearsInRange} from './helpers/years';
+import { getDaysInRange } from './helpers/days';
+import { getMonthsInRange } from './helpers/months';
+import { formatDate } from './helpers/parser';
+import { getYearsInRange } from './helpers/years';
 
 interface CompressedDateRange {
   years?: string[];
@@ -18,13 +18,25 @@ interface CompressedDateRange {
  * @link https://day.js.org/docs/en/parse/string-format Possible date formats
  * @return {CompressedDateRange} The full years, full months and days included in that range
  */
-export function compressDateRange(start: string, end: string): CompressedDateRange {
+export function compressDateRange(
+  start: string,
+  end: string
+): CompressedDateRange {
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
 
   const fullYearsBetween = getYearsInRange(formattedStart, formattedEnd);
-  const fullMonthsBetween = getMonthsInRange(formattedStart, formattedEnd, fullYearsBetween);
-  const daysBetween = getDaysInRange(formattedStart, formattedEnd, fullMonthsBetween, fullYearsBetween);
+  const fullMonthsBetween = getMonthsInRange(
+    formattedStart,
+    formattedEnd,
+    fullYearsBetween
+  );
+  const daysBetween = getDaysInRange(
+    formattedStart,
+    formattedEnd,
+    fullMonthsBetween,
+    fullYearsBetween
+  );
 
   return {
     years: fullYearsBetween,
@@ -32,3 +44,8 @@ export function compressDateRange(start: string, end: string): CompressedDateRan
     days: daysBetween,
   };
 }
+
+export { getYearsInRange } from './helpers/years';
+export { getDaysInRange } from './helpers/days';
+export { getMonthsInRange } from './helpers/months';
+export { CompressedDateRange };

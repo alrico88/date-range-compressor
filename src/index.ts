@@ -31,7 +31,6 @@ export function compressDateRange(
     formattedEnd,
     fullYearsBetween
   );
-  console.log(fullMonthsBetween);
   const daysBetween = getDaysInRange(
     formattedStart,
     formattedEnd,

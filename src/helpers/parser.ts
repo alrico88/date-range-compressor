@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {DateFormats} from './format';
+import { DateFormats } from './format';
 
 interface ParsedDate {
   day: number;
@@ -15,9 +15,9 @@ interface ParsedDate {
  * @return {ParsedDate} The parsed date
  */
 export function parseDate(date: string): ParsedDate {
-  const year = Number(date.substr(0, 4));
-  const month = Number(date.substr(4, 2));
-  const day = Number(date.substr(6, 2));
+  const year = Number(date.slice(0, 4));
+  const month = Number(date.slice(4, 6));
+  const day = Number(date.slice(6, 8));
 
   return {
     day,
@@ -36,9 +36,9 @@ export function parseDate(date: string): ParsedDate {
 export function formatDate(date: string): string {
   if (dayjs(date).isValid()) {
     return dayjs(date).format(DateFormats.Day);
-  } else if (dayjs(date, DateFormats.Day).isValid()) {
-    return date;
-  } else {
-    throw new Error('Unrecognized date format');
   }
+  if (dayjs(date, DateFormats.Day).isValid()) {
+    return date;
+  }
+  throw new Error('Unrecognized date format');
 }

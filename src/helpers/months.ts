@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
-import {getDaysInRange} from './days';
-import {getMonthsDifference} from './difference';
-import {DateFormats} from './format';
-import {padNumber} from './padder';
-import {parseDate} from './parser';
+import { getDaysInRange } from './days';
+import { getMonthsDifference } from './difference';
+import { DateFormats } from './format';
+import { padNumber } from './padder';
+import { parseDate } from './parser';
 
 /**
  * Gets all days in a month
@@ -25,16 +25,7 @@ function getDaysInMonth(month: string): string[] {
  * @return {boolean} Whether all of the month's days are included in the list
  */
 function monthHasAllDays(daysInMonth: string[], listOfDays: string[]): boolean {
-  let response = true;
-
-  for (const day of daysInMonth) {
-    if (!listOfDays.includes(day)) {
-      response = false;
-      break;
-    }
-  }
-
-  return response;
+  return daysInMonth.every((day) => listOfDays.includes(day));
 }
 
 /**
@@ -45,7 +36,9 @@ function monthHasAllDays(daysInMonth: string[], listOfDays: string[]): boolean {
  * @return {string} The desired month as YYYYMM
  */
 function getNthNextMonth(month: string, n: number): string {
-  return dayjs(month, DateFormats.Month).add(n, 'months').format(DateFormats.Month);
+  return dayjs(month, DateFormats.Month)
+    .add(n, 'months')
+    .format(DateFormats.Month);
 }
 
 /**
@@ -57,14 +50,31 @@ function getNthNextMonth(month: string, n: number): string {
  * @param {string[]} [excludedYears=[]] The list of years to exclude for checking as YYYY
  * @return {string[]} The list of full months included in the range
  */
-export function getMonthsInRange(start: string, end: string, excludedYears: string[] = []): string[] {
+export function getMonthsInRange(
+  start: string,
+  end: string,
+  excludedYears: string[] = []
+): string[] {
   const ranges: string[][] = [];
 
   const range: string[] = [];
 
   if (excludedYears.length > 0) {
-    const firstBatch = [start, dayjs(excludedYears[0], DateFormats.Year).subtract(1, 'day').format(DateFormats.Day)];
-    const lastBatch = [dayjs((Number(excludedYears[excludedYears.length - 1]) + 1).toString(), DateFormats.Year).startOf('year').format(DateFormats.Day), end];
+    const firstBatch = [
+      start,
+      dayjs(excludedYears[0], DateFormats.Year)
+        .subtract(1, 'day')
+        .format(DateFormats.Day),
+    ];
+    const lastBatch = [
+      dayjs(
+        (Number(excludedYears[excludedYears.length - 1]) + 1).toString(),
+        DateFormats.Year
+      )
+        .startOf('year')
+        .format(DateFormats.Day),
+      end,
+    ];
     ranges.push(firstBatch, lastBatch);
   } else {
     ranges.push([start, end]);
@@ -74,16 +84,28 @@ export function getMonthsInRange(start: string, end: string, excludedYears: stri
     const parsedRangeStart = parseDate(rangeStart);
     const parsedRangeEnd = parseDate(rangeEnd);
 
-    const rangeStartMonth = `${parsedRangeStart.year}${padNumber(parsedRangeStart.month)}`;
-    const rangeEndMonth = `${parsedRangeEnd.year}${padNumber(parsedRangeEnd.month)}`;
+    const rangeStartMonth = `${parsedRangeStart.year}${padNumber(
+      parsedRangeStart.month
+    )}`;
+    const rangeEndMonth = `${parsedRangeEnd.year}${padNumber(
+      parsedRangeEnd.month
+    )}`;
 
     const daysInRange = getDaysInRange(rangeStart, rangeEnd);
 
-    const monthsDifference = getMonthsDifference(rangeEndMonth, rangeStartMonth);
-    const monthsBetween: string[] = monthsDifference === 0 ? [rangeStartMonth] : [];
+    const monthsDifference = getMonthsDifference(
+      rangeEndMonth,
+      rangeStartMonth
+    );
 
-    for (let i = 0; i < monthsDifference; i++) {
-      monthsBetween.push(getNthNextMonth(rangeStartMonth, i));
+    const monthsBetween: string[] = [];
+
+    if (monthsDifference === 0) {
+      monthsBetween.push(rangeStartMonth);
+    } else {
+      for (let i = 0; i <= monthsDifference; i++) {
+        monthsBetween.push(getNthNextMonth(rangeStartMonth, i));
+      }
     }
 
     for (const month of monthsBetween) {

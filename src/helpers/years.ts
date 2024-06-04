@@ -1,9 +1,6 @@
 import dayjs from 'dayjs';
-import isLeapYear from 'dayjs/plugin/isLeapYear';
 import { DateFormats } from './format';
 import { parseDate } from './parser';
-
-dayjs.extend(isLeapYear);
 
 /**
  * Gets the starting day of the year
